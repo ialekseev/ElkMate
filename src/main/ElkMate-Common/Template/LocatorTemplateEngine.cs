@@ -21,7 +21,7 @@ namespace ElkMate.Common.Template
             }
             catch (Exception exception)
             {
-                throw new Exception("Template '{0}' wasn't registered", exception);
+                throw new Exception(string.Format("Template '{0}' wasn't registered", name), exception);
             }
         }
 
