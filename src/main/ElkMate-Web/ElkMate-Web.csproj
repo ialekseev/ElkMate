@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Captcha\CaptchaModel.cs" />
     <Compile Include="Captcha\CaptchaImage.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ElkMateController.cs" />
     <Compile Include="Modules\SeoUrlModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Routing\LowercaseRoute.cs" />

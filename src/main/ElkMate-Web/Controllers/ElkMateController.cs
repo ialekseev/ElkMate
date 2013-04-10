@@ -2,7 +2,7 @@
 
 namespace ElkMate.Web.Controllers
 {
-    public class BaseController: Controller
+    public abstract class ElkMateController: Controller
     {
         public JsonResult JsonSuccess(object info)
         {
