@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SmartElk.ElkMate.Common.Specs</RootNamespace>
-    <AssemblyName>SmartElk-ElkMate-Common-Specs</AssemblyName>
+    <AssemblyName>SmartElk.ElkMate.Common.Specs</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
