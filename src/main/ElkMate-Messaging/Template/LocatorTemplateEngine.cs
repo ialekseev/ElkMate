@@ -1,23 +1,21 @@
 using System;
 
-namespace ElkMate.Common.Template
+namespace SmartElk.ElkMate.Messaging.Template
 {
     public class LocatorTemplateEngine : ITemplateEngine
-    {        
-	    public Func<string, ITemplate> TemplateFinder { get; protected set; }
+    {
+        public LocatorTemplateEngine(Func<string, ITemplate> templateFinder)
+        {
+            TemplateFinder = templateFinder;
+        }
 
-		public LocatorTemplateEngine(Func<string, ITemplate> templateFinder)
-		{
-			TemplateFinder = templateFinder;
-		}
-        
         #region ITemplateEngine Members
 
         public virtual ITemplate FindTemplateByName(string name)
         {
             try
             {
-	            return TemplateFinder(name);
+                return TemplateFinder(name);
             }
             catch (Exception exception)
             {
@@ -26,5 +24,7 @@ namespace ElkMate.Common.Template
         }
 
         #endregion
+
+        public Func<string, ITemplate> TemplateFinder { get; protected set; }
     }
 }

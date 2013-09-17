@@ -4,7 +4,7 @@ using System.Linq;
 using Commons.Collections;
 using NVelocity.App;
 
-namespace ElkMate.Common.Template
+namespace SmartElk.ElkMate.Messaging.Template
 {
     public class VelocityTemplateScanner : TemplateScanner
     {
@@ -16,7 +16,7 @@ namespace ElkMate.Common.Template
             var props = new ExtendedProperties();
             props.SetProperty("file.resource.loader.path", directory.FullName);
             props.SetProperty("file.resource.loader.modificationCheckInterval", "15");
-           
+
             _velocityEngine.Init(props);
         }
 
@@ -24,7 +24,12 @@ namespace ElkMate.Common.Template
         public override IEnumerable<ITemplate> Scan(string searchPattern = "*.vm")
 // ReSharper restore OptionalParameterHierarchyMismatch
         {
-            return Directory.GetFiles(searchPattern).Select(file => new VelocityTemplate(file.FullName, _velocityEngine)).ToList().Cast<ITemplate>().ToList();
+            return
+                Directory.GetFiles(searchPattern)
+                         .Select(file => new VelocityTemplate(file.FullName, _velocityEngine))
+                         .ToList()
+                         .Cast<ITemplate>()
+                         .ToList();
         }
     }
 }

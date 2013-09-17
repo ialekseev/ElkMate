@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ElkMate.Common
+namespace SmartElk.ElkMate.Common
 {
     [Serializable]
     public class Email : IContact

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace ElkMate.Web.Controllers
+namespace SmartElk.ElkMate.Web.Controllers
 {
     public abstract class ElkMateController: Controller
     {

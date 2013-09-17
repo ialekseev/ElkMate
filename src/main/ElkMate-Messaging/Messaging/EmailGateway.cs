@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.Net.Mail;
 
-namespace ElkMate.Common.Messaging
+namespace SmartElk.ElkMate.Messaging.Messaging
 {
     public class EmailGateway : IEmailGateway
     {
@@ -25,11 +25,15 @@ namespace ElkMate.Common.Messaging
 
                 client.EnableSsl = smtpSettings.UseSsl;
 
-                var from = message.Outgoing.Alias == null ? new MailAddress(message.Outgoing.Address) : new MailAddress(message.Outgoing.Address, message.Outgoing.Alias);
-                var to = message.Receiving.Alias == null ? new MailAddress(message.Receiving.Address) : new MailAddress(message.Receiving.Address, message.Receiving.Alias);
+                MailAddress from = message.Outgoing.Alias == null
+                                       ? new MailAddress(message.Outgoing.Address)
+                                       : new MailAddress(message.Outgoing.Address, message.Outgoing.Alias);
+                MailAddress to = message.Receiving.Alias == null
+                                     ? new MailAddress(message.Receiving.Address)
+                                     : new MailAddress(message.Receiving.Address, message.Receiving.Alias);
 
                 var msg = new MailMessage(from, to)
-                              {IsBodyHtml = message.IsHtml, Subject = message.Subject, Body = message.Body};
+                    {IsBodyHtml = message.IsHtml, Subject = message.Subject, Body = message.Body};
 
                 client.Send(msg);
             }

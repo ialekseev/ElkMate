@@ -2,7 +2,7 @@
 using System.Web;
 using System.Linq;
 
-namespace ElkMate.Web.Modules
+namespace SmartElk.ElkMate.Web.Modules
 {
     public class SeoUrlModule : IHttpModule
     {

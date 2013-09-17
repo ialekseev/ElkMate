@@ -1,4 +1,4 @@
-namespace ElkMate.Common.Messaging
+namespace SmartElk.ElkMate.Messaging.Messaging
 {
     public interface IEmailGateway
     {

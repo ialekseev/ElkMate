@@ -1,4 +1,4 @@
-namespace ElkMate.Common.Template
+namespace SmartElk.ElkMate.Messaging.Template
 {
     public interface ITemplateEngine
     {

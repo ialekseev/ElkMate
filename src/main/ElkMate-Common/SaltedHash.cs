@@ -3,7 +3,7 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ElkMate.Common
+namespace SmartElk.ElkMate.Common
 {
     public class SaltedHash
     {

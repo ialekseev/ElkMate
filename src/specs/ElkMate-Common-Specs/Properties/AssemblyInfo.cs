@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SmartElk-ElkMate-Common")]
+[assembly: AssemblyTitle("SmartElk-ElkMate-Common-Specs")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SmartElk")]
-[assembly: AssemblyProduct("SmartElk-ElkMate-Common")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
+[assembly: AssemblyProduct("SmartElk-ElkMate-Common-Specs")]
+[assembly: AssemblyCopyright("Copyright © UBS AG 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("24ab2cdb-1a01-4d6b-b40c-dd2693a10fb0")]
+[assembly: Guid("948e805c-dc8d-4851-a21d-90701a90bf72")]
 
 // Version information for an assembly consists of the following four values:
 //

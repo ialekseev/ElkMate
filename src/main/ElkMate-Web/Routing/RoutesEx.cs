@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace ElkMate.Web.Routing
+namespace SmartElk.ElkMate.Web.Routing
 {
     public static class RoutesEx
     {

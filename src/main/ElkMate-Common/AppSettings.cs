@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace ElkMate.Common
+namespace SmartElk.ElkMate.Common
 {
     public static class AppSettings
     {

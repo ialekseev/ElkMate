@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace ElkMate.Common.Template
+namespace SmartElk.ElkMate.Messaging.Template
 {
     public abstract class TemplateScanner
     {
         private DirectoryInfo _directory;
+
+        protected TemplateScanner(DirectoryInfo directory)
+        {
+            _directory = directory;
+        }
 
         public virtual DirectoryInfo Directory
         {
@@ -13,12 +18,7 @@ namespace ElkMate.Common.Template
             protected set { _directory = value; }
         }
 
-        protected TemplateScanner(DirectoryInfo directory)
-        {
-            _directory = directory;
-        }
 
-        
         public abstract IEnumerable<ITemplate> Scan(string searchPattern = "*.*");
     }
 }

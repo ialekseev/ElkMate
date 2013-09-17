@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 
-namespace ElkMate.Common
+namespace SmartElk.ElkMate.Common
 {
     public class Ticket
     {

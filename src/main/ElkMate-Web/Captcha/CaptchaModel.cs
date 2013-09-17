@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Web;
 
-namespace ElkMate.Web.Captcha
+namespace SmartElk.ElkMate.Web.Captcha
 {
     public class CaptchaModel
     {        

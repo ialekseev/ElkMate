@@ -1,6 +1,6 @@
 ﻿using System.Web.Routing;
 
-namespace ElkMate.Web.Routing
+namespace SmartElk.ElkMate.Web.Routing
 {
     public class LowercaseRoute : Route
     {

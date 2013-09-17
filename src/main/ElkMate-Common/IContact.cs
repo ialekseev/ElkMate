@@ -1,4 +1,4 @@
-namespace ElkMate.Common
+namespace SmartElk.ElkMate.Common
 {
     public interface IContact
     {

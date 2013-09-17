@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
-namespace ElkMate.Web.Captcha
+namespace SmartElk.ElkMate.Web.Captcha
 {
     public class CaptchaImage
     {

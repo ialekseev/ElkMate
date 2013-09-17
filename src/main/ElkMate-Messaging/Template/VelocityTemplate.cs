@@ -3,13 +3,13 @@ using System.Text;
 using NVelocity;
 using NVelocity.App;
 
-namespace ElkMate.Common.Template
+namespace SmartElk.ElkMate.Messaging.Template
 {
     public class VelocityTemplate : ITemplate
     {
         private const string DefaultObjectNameTemplate = "param{0}";
-        private readonly VelocityEngine _velocityEngine;
         private readonly string _fileName;
+        private readonly VelocityEngine _velocityEngine;
 
         public VelocityTemplate(string fileName, VelocityEngine velocityEngine)
         {
@@ -17,7 +17,6 @@ namespace ElkMate.Common.Template
             _velocityEngine = velocityEngine;
         }
 
-        
         #region ITemplate Members
 
         public virtual string Name
@@ -34,11 +33,12 @@ namespace ElkMate.Common.Template
             }
 
             ctx.Put("Template", Name);
-            
+
             using (var stringWriter = new StringWriter())
             {
-                _velocityEngine.GetTemplate(Path.GetFileName(_fileName), Encoding.UTF8.BodyName).Merge(ctx, stringWriter);
-                return stringWriter.GetStringBuilder().ToString();    
+                _velocityEngine.GetTemplate(Path.GetFileName(_fileName), Encoding.UTF8.BodyName)
+                               .Merge(ctx, stringWriter);
+                return stringWriter.GetStringBuilder().ToString();
             }
         }
 

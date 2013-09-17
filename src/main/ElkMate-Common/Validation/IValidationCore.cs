@@ -1,4 +1,4 @@
-﻿namespace ElkMate.Common.Validation
+﻿namespace SmartElk.ElkMate.Common.Validation
 {
     public interface IValidationCore
     {

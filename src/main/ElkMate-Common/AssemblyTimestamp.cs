@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 
-namespace ElkMate.Common
+namespace SmartElk.ElkMate.Common
 {
     public static class AssemblyTimestamp 
     {    

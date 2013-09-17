@@ -1,5 +1,5 @@
 ﻿
-namespace ElkMate.Common.Validation
+namespace SmartElk.ElkMate.Common.Validation
 {
     public abstract class BaseValidationCore
     {
