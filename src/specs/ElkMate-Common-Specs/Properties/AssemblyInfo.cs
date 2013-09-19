@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SmartElk")]
 [assembly: AssemblyProduct("SmartElk-ElkMate-Common-Specs")]
-[assembly: AssemblyCopyright("Copyright © UBS AG 2013")]
+[assembly: AssemblyCopyright("Copyright © SmartElk 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
