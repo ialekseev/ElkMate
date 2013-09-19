@@ -7,6 +7,7 @@ namespace SmartElk.ElkMate.Common.Specs
 {
     public class StringExSpecs
     {
+        [TestFixture]
         public class when_trying_to_combine_paths
         {
             [Test]
