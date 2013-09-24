@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using NUnit.Framework;
 using SmartElk.ElkMate.Common.Ex;
@@ -80,6 +81,99 @@ namespace SmartElk.ElkMate.Common.Specs
 
                 var result = list.JoinToString();
                 result.Should().BeEmpty();
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_replace_existing_item_in_enumerable
+        {
+            protected class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+            
+            [Test]
+            public void should_found_and_replace_item()
+            {
+                var list = new List<TestClass>() { new TestClass() { Id = 5, Name = "5" }, new TestClass() { Id = 3, Name = "3" }, new TestClass() { Id = 6, Name = "6" } };
+
+                var newItem = new TestClass() {Id = 3, Name = "new 3"};
+
+                var result = list.ReplaceItems(t=>t.Id, t => t.Id == 3, newItem).ToList();
+
+                result.Count().Should().Be(3);
+                
+                result[0].Id.Should().Be(5);
+                result[0].Name.Should().Be("5");
+
+                result[1].Id.Should().Be(3);
+                result[1].Name.Should().Be("new 3");
+
+                result[2].Id.Should().Be(6);
+                result[2].Name.Should().Be("6");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_replace_non_existing_item_in_enumerable
+        {
+            protected class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+
+            [Test]
+            public void should_replace_nothing()
+            {
+                var list = new List<TestClass>() { new TestClass() { Id = 5, Name = "5" }, new TestClass() { Id = 3, Name = "3" }, new TestClass() { Id = 6, Name = "6" } };
+
+                var newItem = new TestClass() { Id = 12, Name = "new 12" };
+
+                var result = list.ReplaceItems(t=>t.Id, t => t.Id == 12, newItem).ToList();
+
+                result.Count().Should().Be(3);
+
+                result[0].Id.Should().Be(5);
+                result[0].Name.Should().Be("5");
+
+                result[1].Id.Should().Be(3);
+                result[1].Name.Should().Be("3");
+
+                result[2].Id.Should().Be(6);
+                result[2].Name.Should().Be("6");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_replace_multiple_items_in_enumerable
+        {
+            protected class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+
+            [Test]
+            public void should_found_and_replace_items()
+            {
+                var list = new List<TestClass>() { new TestClass() { Id = 3, Name = "5" }, new TestClass() { Id = 3, Name = "3" }, new TestClass() { Id = 6, Name = "6" } };
+
+                var newItem = new TestClass() { Id = 3, Name = "new" };
+
+                var result = list.ReplaceItems(t => t.Id, t => t.Id == 3, newItem).ToList();
+
+                result.Count().Should().Be(3);
+
+                result[0].Id.Should().Be(3);
+                result[0].Name.Should().Be("new");
+
+                result[1].Id.Should().Be(3);
+                result[1].Name.Should().Be("new");
+
+                result[2].Id.Should().Be(6);
+                result[2].Name.Should().Be("6");
             }
         }
     }
