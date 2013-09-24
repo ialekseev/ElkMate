@@ -4,16 +4,30 @@ using System.Linq;
 
 namespace SmartElk.ElkMate.Common
 {
+    public class Apply<T>
+    {
+        public Action<T> ToApply { get; private set; }
+        public bool IsGrave { get; private set; }
+
+        public Apply(Action<T> toApply, bool isGrave)
+        {
+            ToApply = toApply;
+            IsGrave = isGrave;
+        }
+    }
+    
     public class On<T>
     {
         public Func<IEnumerable<T>> GetItems { get; set; }
-        public List<Action<T>> ToApply { get; set; }
-        public List<Action> ToPerform { get; set; }
+        public List<Apply<T>> ToApply { get; set; }        
+        public List<Action> ToPerformBeforeApply { get; set; }
+        public List<Action> ToPerformAfterApply { get; set; }
                 
         private On()
         {
-            ToApply = new List<Action<T>>();
-            ToPerform = new List<Action>();            
+            ToApply = new List<Apply<T>>();            
+            ToPerformBeforeApply = new List<Action>();            
+            ToPerformAfterApply = new List<Action>();            
         }
 
         public static On<T> Items(Func<IEnumerable<T>> getItems)
@@ -23,34 +37,57 @@ namespace SmartElk.ElkMate.Common
 
         public On<T> Apply(Action<T> apply)
         {
-            this.ToApply.Add(apply);
+            this.ToApply.Add(new Apply<T>(apply, false));
             return this;
         }
 
-        public On<T> Perform(Action perform)
+        public On<T> ApplyGrave(Action<T> graveApply)
         {
-            this.ToPerform.Add(perform);
+            this.ToApply.Add(new Apply<T>(graveApply, true));
             return this;
         }
 
-        public IList<T> Execute()
-        {           
-            var result = GetItems().ToList();
+        public On<T> PerformBeforeApply(Action perform)
+        {
+            this.ToPerformBeforeApply.Add(perform);
+            return this;
+        }
+        
+        public On<T> PerformAfterApply(Action perform)
+        {
+            this.ToPerformAfterApply.Add(perform);
+            return this;
+        }
+
+        public IList<T> Execute(bool forceGraveApplyExecution)
+        {
+            foreach (var perform in ToPerformBeforeApply)
+            {
+                perform();
+            }
             
+            var result = GetItems().ToList();            
             foreach (var item in result)
             {                
                 foreach (var apply in ToApply)
                 {
-                    apply(item);
+                    if (!apply.IsGrave || apply.IsGrave && forceGraveApplyExecution)
+                      apply.ToApply(item);
                 }                
             }
 
-            foreach (var perform in ToPerform)
+
+            foreach (var perform in ToPerformAfterApply)
             {
                 perform();
             }
                         
             return result;
-        }        
+        }
+
+        public IList<T> Execute()
+        {
+            return Execute(false);
+        }
     }
 }

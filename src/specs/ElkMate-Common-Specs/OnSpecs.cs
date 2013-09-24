@@ -39,7 +39,7 @@ namespace SmartElk.ElkMate.Common.Specs
                                     t.A = "3";
                                     t.B = "4";
                                 }).
-                             Perform(someObject.DoSomething).
+                             PerformAfterApply(someObject.DoSomething).
                              Execute();
                    
 
@@ -64,8 +64,8 @@ namespace SmartElk.ElkMate.Common.Specs
                 var result =
                     On<Item>.Items(() => new List<Item>() {new Item() {A = "1", B = "1"}, new Item() {A = "2", B = "2"}})
                             .
-                             Perform(someObject.DoSomething).
-                             Perform(someObject.DoSomething).
+                             PerformBeforeApply(someObject.DoSomething).
+                             PerformBeforeApply(someObject.DoSomething).
                              Execute();
                    
 
@@ -97,7 +97,7 @@ namespace SmartElk.ElkMate.Common.Specs
                                 {
                                     t.B = "4";
                                 }).
-                             Perform(someObject.DoSomething).
+                             PerformAfterApply(someObject.DoSomething).
                              Execute();                   
 
                 result.Count.Should().Be(2);
@@ -107,6 +107,58 @@ namespace SmartElk.ElkMate.Common.Specs
                 result[1].B.Should().Be("4");
 
                 A.CallTo(() => someObject.DoSomething()).MustHaveHappened();
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_grave_apply_and_execute_without_force_option : BaseOnSpec
+        {
+            [Test]
+            public void should_not_apply()
+            {                
+                var result =
+                    On<Item>.Items(() => new List<Item>() { new Item() { A = "1", B = "1" }, new Item() { A = "2", B = "2" } })
+                            .Apply(t =>
+                            {
+                                t.A = "3";
+                            })
+                            .ApplyGrave(t =>
+                            {
+                                t.B = "4";
+                            }).                             
+                             Execute(false);
+
+                result.Count.Should().Be(2);
+                result[0].A.Should().Be("3");
+                result[0].B.Should().Be("1");
+                result[1].A.Should().Be("3");
+                result[1].B.Should().Be("2");                
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_grave_apply_and_execute_with_force_option : BaseOnSpec
+        {
+            [Test]
+            public void should_apply()
+            {
+                var result =
+                    On<Item>.Items(() => new List<Item>() { new Item() { A = "1", B = "1" }, new Item() { A = "2", B = "2" } })
+                            .Apply(t =>
+                            {
+                                t.A = "3";
+                            })
+                            .ApplyGrave(t =>
+                            {
+                                t.B = "4";
+                            }).
+                             Execute(true);
+
+                result.Count.Should().Be(2);
+                result[0].A.Should().Be("3");
+                result[0].B.Should().Be("4");
+                result[1].A.Should().Be("3");
+                result[1].B.Should().Be("4");
             }
         }
     }
