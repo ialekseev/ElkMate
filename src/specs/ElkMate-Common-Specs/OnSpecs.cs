@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 using System.Collections.Generic;
+using System.Linq;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
@@ -17,8 +18,8 @@ namespace SmartElk.ElkMate.Common.Specs
             }
 
             public interface IClass
-            {
-                void DoSomething();
+            {                
+                void DoSomething(IEnumerable<Item> items);
             }
         }
         
@@ -49,7 +50,7 @@ namespace SmartElk.ElkMate.Common.Specs
                 result[1].A.Should().Be("3");
                 result[1].B.Should().Be("4");
 
-                A.CallTo(() => someObject.DoSomething()).MustHaveHappened();
+                A.CallTo(() => someObject.DoSomething(A<IEnumerable<Item>>.Ignored)).MustHaveHappened();
             }
         }
        
@@ -73,9 +74,9 @@ namespace SmartElk.ElkMate.Common.Specs
                 result[0].A.Should().Be("1");
                 result[0].B.Should().Be("1");
                 result[1].A.Should().Be("2");
-                result[1].B.Should().Be("2");   
+                result[1].B.Should().Be("2");
 
-                A.CallTo(() => someObject.DoSomething()).MustHaveHappened(Repeated.Exactly.Twice);
+                A.CallTo(() => someObject.DoSomething(A<IEnumerable<Item>>.Ignored)).MustHaveHappened(Repeated.Exactly.Twice);
             }
         }
 
@@ -106,7 +107,7 @@ namespace SmartElk.ElkMate.Common.Specs
                 result[1].A.Should().Be("3");
                 result[1].B.Should().Be("4");
 
-                A.CallTo(() => someObject.DoSomething()).MustHaveHappened();
+                A.CallTo(() => someObject.DoSomething(A<IEnumerable<Item>>.Ignored)).MustHaveHappened();
             }
         }
 
@@ -161,6 +162,31 @@ namespace SmartElk.ElkMate.Common.Specs
                 result[1].B.Should().Be("4");
             }
         }
+
+        [TestFixture]
+        public class when_trying_to_perform_passing_function_with_items_argument : BaseOnSpec
+        {
+            [Test]
+            public void should_call_function_with_items_argument()
+            {
+                var someObject = A.Fake<IClass>();
+
+                var result =
+                    On<Item>.Items(() => new List<Item>() { new Item() { A = "1", B = "1" }, new Item() { A = "2", B = "2" } }).
+                    PerformBeforeApply(t => someObject.DoSomething(t)).
+                    PerformAfterApply(t => someObject.DoSomething(t)).                            
+                    Execute(true);
+
+                result.Count.Should().Be(2);
+                result[0].A.Should().Be("1");
+                result[0].B.Should().Be("1");
+                result[1].A.Should().Be("2");
+                result[1].B.Should().Be("2");
+
+                A.CallTo(() => someObject.DoSomething(A<IEnumerable<Item>>.That.Matches(x => x.Count()==2 && x.First().A=="1" && x.First().B=="1" && x.Last().A=="2" && x.Last().B=="2"))).MustHaveHappened(Repeated.Exactly.Twice);
+            }
+        }
+
     }
 }
 

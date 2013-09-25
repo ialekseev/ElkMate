@@ -20,14 +20,14 @@ namespace SmartElk.ElkMate.Common
     {
         public Func<IEnumerable<T>> GetItems { get; set; }
         public List<Apply<T>> ToApply { get; set; }        
-        public List<Action> ToPerformBeforeApply { get; set; }
-        public List<Action> ToPerformAfterApply { get; set; }
+        public List<Action<IEnumerable<T>>> ToPerformBeforeApply { get; set; }
+        public List<Action<IEnumerable<T>>> ToPerformAfterApply { get; set; }
                 
         private On()
         {
             ToApply = new List<Apply<T>>();            
-            ToPerformBeforeApply = new List<Action>();            
-            ToPerformAfterApply = new List<Action>();            
+            ToPerformBeforeApply = new List<Action<IEnumerable<T>>>();            
+            ToPerformAfterApply = new List<Action<IEnumerable<T>>>();            
         }
 
         public static On<T> Items(Func<IEnumerable<T>> getItems)
@@ -47,13 +47,13 @@ namespace SmartElk.ElkMate.Common
             return this;
         }
 
-        public On<T> PerformBeforeApply(Action perform)
+        public On<T> PerformBeforeApply(Action<IEnumerable<T>> perform)
         {
             this.ToPerformBeforeApply.Add(perform);
             return this;
         }
-        
-        public On<T> PerformAfterApply(Action perform)
+
+        public On<T> PerformAfterApply(Action<IEnumerable<T>> perform)
         {
             this.ToPerformAfterApply.Add(perform);
             return this;
@@ -61,12 +61,13 @@ namespace SmartElk.ElkMate.Common
 
         public IList<T> Execute(bool forceGraveApplyExecution)
         {
+            var result = GetItems().ToList();            
+            
             foreach (var perform in ToPerformBeforeApply)
             {
-                perform();
+                perform(result.AsReadOnly());
             }
-            
-            var result = GetItems().ToList();            
+                        
             foreach (var item in result)
             {                
                 foreach (var apply in ToApply)
@@ -76,10 +77,9 @@ namespace SmartElk.ElkMate.Common
                 }                
             }
 
-
             foreach (var perform in ToPerformAfterApply)
             {
-                perform();
+                perform(result.AsReadOnly());
             }
                         
             return result;
