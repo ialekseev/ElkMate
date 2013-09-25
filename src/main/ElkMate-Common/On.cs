@@ -18,10 +18,10 @@ namespace SmartElk.ElkMate.Common
     
     public class On<T>
     {
-        public Func<IEnumerable<T>> GetItems { get; set; }
-        public List<Apply<T>> ToApply { get; set; }        
-        public List<Action<IEnumerable<T>>> ToPerformBeforeApply { get; set; }
-        public List<Action<IEnumerable<T>>> ToPerformAfterApply { get; set; }
+        public Func<IEnumerable<T>> GetItems { get; private set; }
+        public List<Apply<T>> ToApply { get; private set; }        
+        public List<Action<IEnumerable<T>>> ToPerformBeforeApply { get; private set; }
+        public List<Action<IEnumerable<T>>> ToPerformAfterApply { get; private set; }
                 
         private On()
         {
