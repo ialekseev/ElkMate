@@ -31,8 +31,10 @@ namespace SmartElk.ElkMate.Common.Specs
             [Test]
             public void should_return_valid_result()
             {
+                //arrange
                 var someObject = A.Fake<IClass>();
 
+                //act
                 var result =
                     On<Item>.Items(() => new List<Item>() {new Item() {A = "1", B = "1"}, new Item() {A = "2", B = "2"}})
                             .Apply(t =>
@@ -43,7 +45,7 @@ namespace SmartElk.ElkMate.Common.Specs
                              PerformAfterApply(someObject.DoSomething).
                              Execute();
                    
-
+                //assert
                 result.Count.Should().Be(2);
                 result[0].A.Should().Be("3");
                 result[0].B.Should().Be("4");
@@ -60,8 +62,10 @@ namespace SmartElk.ElkMate.Common.Specs
             [Test]
             public void should_perform_two_times()
             {
+                //arrange
                 var someObject = A.Fake<IClass>();
 
+                //act
                 var result =
                     On<Item>.Items(() => new List<Item>() {new Item() {A = "1", B = "1"}, new Item() {A = "2", B = "2"}})
                             .
@@ -69,7 +73,7 @@ namespace SmartElk.ElkMate.Common.Specs
                              PerformBeforeApply(someObject.DoSomething).
                              Execute();
                    
-
+                //assert
                 result.Count.Should().Be(2);
                 result[0].A.Should().Be("1");
                 result[0].B.Should().Be("1");
@@ -86,8 +90,10 @@ namespace SmartElk.ElkMate.Common.Specs
             [Test]
             public void should_return_valid_result()
             {
+                //arrange
                 var someObject = A.Fake<IClass>();
 
+                //act
                 var result =
                     On<Item>.Items(() => new List<Item>() {new Item() {A = "1", B = "1"}, new Item() {A = "2", B = "2"}})
                             .Apply(t =>
@@ -101,6 +107,7 @@ namespace SmartElk.ElkMate.Common.Specs
                              PerformAfterApply(someObject.DoSomething).
                              Execute();                   
 
+                //assert
                 result.Count.Should().Be(2);
                 result[0].A.Should().Be("3");
                 result[0].B.Should().Be("4");
@@ -117,6 +124,8 @@ namespace SmartElk.ElkMate.Common.Specs
             [Test]
             public void should_not_apply()
             {                
+                //arrange
+                //act
                 var result =
                     On<Item>.Items(() => new List<Item>() { new Item() { A = "1", B = "1" }, new Item() { A = "2", B = "2" } })
                             .Apply(t =>
@@ -129,6 +138,7 @@ namespace SmartElk.ElkMate.Common.Specs
                             }).                             
                              Execute(false);
 
+                //assert
                 result.Count.Should().Be(2);
                 result[0].A.Should().Be("3");
                 result[0].B.Should().Be("1");
@@ -143,6 +153,8 @@ namespace SmartElk.ElkMate.Common.Specs
             [Test]
             public void should_apply()
             {
+                //arrange
+                //act
                 var result =
                     On<Item>.Items(() => new List<Item>() { new Item() { A = "1", B = "1" }, new Item() { A = "2", B = "2" } })
                             .Apply(t =>
@@ -155,6 +167,7 @@ namespace SmartElk.ElkMate.Common.Specs
                             }).
                              Execute(true);
 
+                //assert
                 result.Count.Should().Be(2);
                 result[0].A.Should().Be("3");
                 result[0].B.Should().Be("4");
@@ -169,14 +182,17 @@ namespace SmartElk.ElkMate.Common.Specs
             [Test]
             public void should_call_function_with_items_argument()
             {
+                //arrange
                 var someObject = A.Fake<IClass>();
-
+                
+                //act
                 var result =
                     On<Item>.Items(() => new List<Item>() { new Item() { A = "1", B = "1" }, new Item() { A = "2", B = "2" } }).
                     PerformBeforeApply(t => someObject.DoSomething(t)).
                     PerformAfterApply(t => someObject.DoSomething(t)).                            
                     Execute(true);
 
+                //assert
                 result.Count.Should().Be(2);
                 result[0].A.Should().Be("1");
                 result[0].B.Should().Be("1");
