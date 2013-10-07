@@ -27,5 +27,12 @@ namespace SmartElk.ElkMate.Common.Ex
         {
             return JoinToString(list.Select(select), ", ");
         }
+
+        public static IEnumerable<T> ReplaceItems<T, TId>(this IEnumerable<T> list, Func<T, TId> identity, Func<T, bool> whereReplace, T replaceWith)
+        {
+            list = list.ToList();
+            var itemsToReplace = list.Where(whereReplace).Select(identity).ToList();
+            return (from item in list let id = identity(item) select itemsToReplace.Contains(id) ? replaceWith : item).ToList();
+        }
     }
 }

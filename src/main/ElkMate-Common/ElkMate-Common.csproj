@@ -47,9 +47,11 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="Console\ArgumentsParser.cs" />
     <Compile Include="Email.cs" />
+    <Compile Include="Ex\DirectoryEx.cs" />
     <Compile Include="Ex\EnumerableEx.cs" />
     <Compile Include="Ex\StringEx.cs" />
     <Compile Include="IContact.cs" />
+    <Compile Include="On.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaltedHash.cs" />
     <Compile Include="Ticket.cs" />

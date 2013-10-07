@@ -1,5 +1,4 @@
 ﻿// ReSharper disable InconsistentNaming
-
 using FluentAssertions;
 using NUnit.Framework;
 using SmartElk.ElkMate.Common.Console;
@@ -14,8 +13,11 @@ namespace SmartElk.ElkMate.Common.Specs
             [Test]
             public void should_retrun_parsed_arguments()
             {
+                //arrange
                 var args = new[] { "-size=100", "-height:'400'", "--debug", "-release", "width:"};
-                var argumentsParser = new ArgumentsParser(args);                
+                //act                
+                var argumentsParser = new ArgumentsParser(args);
+                //assert
                 argumentsParser["size"].Should().Be("100");
                 argumentsParser["height"].Should().Be("400");
                 argumentsParser["debug"].Should().Be("true");
@@ -30,9 +32,11 @@ namespace SmartElk.ElkMate.Common.Specs
             [Test]
             public void should_not_return_any_arguments()
             {
+                //arrange
                 var args = new[] { "size=100" };
+                //act
                 var argumentsParser = new ArgumentsParser(args);
-
+                //assert
                 argumentsParser["size"].Should().BeNull();
                 argumentsParser["debug"].Should().BeNull();              
                 argumentsParser["bad"].Should().BeNull();
