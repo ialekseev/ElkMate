@@ -34,5 +34,21 @@ namespace SmartElk.ElkMate.Common.Ex
             var itemsToReplace = list.Where(whereReplace).Select(identity).ToList();
             return (from item in list let id = identity(item) select itemsToReplace.Contains(id) ? replaceWith : item).ToList();
         }
+
+        public static IEnumerable<T> Merge<T, TId>(this IEnumerable<T> list, IEnumerable<T> other, Func<T, TId> keyProperty)
+        {
+            if (list == null)
+                return other;
+            if (other == null)
+                return list;
+
+            var listAsDict = list.ToDictionary(keyProperty);
+            foreach (var item in other)
+            {
+                listAsDict[keyProperty(item)] = item;
+            }
+            
+            return listAsDict.Values.ToList();
+        }
     }
 }
