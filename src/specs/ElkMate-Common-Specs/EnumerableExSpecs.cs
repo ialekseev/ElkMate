@@ -195,6 +195,181 @@ namespace SmartElk.ElkMate.Common.Specs
                 result[2].Name.Should().Be("6");
             }
         }
+
+        [TestFixture]
+        public class when_trying_to_merge_two_lists
+        {
+            protected class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+
+            [Test]
+            public void should_return_merged_list()
+            {
+                //arrange
+                IEnumerable<TestClass> list1 = new List<TestClass>()
+                    {
+                        new TestClass() {Id = 4, Name = "Super"},
+                        new TestClass() {Id = 5, Name = "Great"},
+                        new TestClass() {Id = 7, Name = "Awesome"}
+                    };
+
+                IEnumerable<TestClass> list2 = new List<TestClass>()
+                    {
+                        new TestClass() {Id = 4, Name = "Super1"},
+                        new TestClass() {Id = 5, Name = "Great"},
+                        new TestClass() {Id = 6, Name = "Amazing"}
+                    };
+
+                //act
+                var result = list1.Merge(list2, t => t.Id).ToArray();
+                
+                //assert
+                result.Length.Should().Be(4);
+                result[0].Id.Should().Be(4);
+                result[0].Name.Should().Be("Super1");
+                result[1].Id.Should().Be(5);
+                result[1].Name.Should().Be("Great");
+                result[2].Id.Should().Be(7);
+                result[2].Name.Should().Be("Awesome");
+                result[3].Id.Should().Be(6);
+                result[3].Name.Should().Be("Amazing");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_merge_list_with_null_list
+        {
+            protected class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+
+            [Test]
+            public void should_return_first_list()
+            {
+                //arrange
+                IEnumerable<TestClass> list1 = new List<TestClass>()
+                    {
+                        new TestClass() {Id = 4, Name = "Super"},
+                        new TestClass() {Id = 5, Name = "Great"},
+                        new TestClass() {Id = 7, Name = "Awesome"}
+                    };
+
+                IEnumerable<TestClass> list2 = null;
+
+                //act
+                var result = list1.Merge(list2, t => t.Id).ToArray();
+
+                //assert
+                result.Length.Should().Be(3);
+                result[0].Id.Should().Be(4);
+                result[0].Name.Should().Be("Super");
+                result[1].Id.Should().Be(5);
+                result[1].Name.Should().Be("Great");
+                result[2].Id.Should().Be(7);
+                result[2].Name.Should().Be("Awesome");                
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_merge_null_list_with_list
+        {
+            protected class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+
+            [Test]
+            public void should_return_second_list()
+            {
+                //arrange
+                IEnumerable<TestClass> list1 = null;
+                IEnumerable<TestClass> list2 = new List<TestClass>()
+                    {
+                        new TestClass() {Id = 4, Name = "Super"},
+                        new TestClass() {Id = 5, Name = "Great"},
+                        new TestClass() {Id = 7, Name = "Awesome"}
+                    };
+                
+                //act
+                var result = list1.Merge(list2, t => t.Id).ToArray();
+
+                //assert
+                result.Length.Should().Be(3);
+                result[0].Id.Should().Be(4);
+                result[0].Name.Should().Be("Super");
+                result[1].Id.Should().Be(5);
+                result[1].Name.Should().Be("Great");
+                result[2].Id.Should().Be(7);
+                result[2].Name.Should().Be("Awesome");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_merge_list_with_empty_list
+        {
+            protected class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+
+            [Test]
+            public void should_return_first_list()
+            {
+                //arrange
+                IEnumerable<TestClass> list1 = new List<TestClass>()
+                    {
+                        new TestClass() {Id = 4, Name = "Super"},
+                        new TestClass() {Id = 5, Name = "Great"},
+                        new TestClass() {Id = 7, Name = "Awesome"}
+                    };
+
+                IEnumerable<TestClass> list2 = new List<TestClass>();
+
+                //act
+                var result = list1.Merge(list2, t => t.Id).ToArray();
+
+                //assert
+                result.Length.Should().Be(3);
+                result[0].Id.Should().Be(4);
+                result[0].Name.Should().Be("Super");
+                result[1].Id.Should().Be(5);
+                result[1].Name.Should().Be("Great");
+                result[2].Id.Should().Be(7);
+                result[2].Name.Should().Be("Awesome");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_merge_null_list_with_null_list
+        {
+            protected class TestClass
+            {
+                public int Id { get; set; }
+                public string Name { get; set; }
+            }
+
+            [Test]
+            public void should_return_null()
+            {
+                //arrange
+                IEnumerable<TestClass> list1 = null;
+
+                IEnumerable<TestClass> list2 = null;
+
+                //act
+                var result = list1.Merge(list2, t => t.Id);
+
+                //assert
+                result.Should().BeNull();
+            }
+        }
     }
 }
 // ReSharper restore InconsistentNaming
