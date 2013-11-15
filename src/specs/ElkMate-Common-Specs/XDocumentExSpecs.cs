@@ -48,6 +48,41 @@ namespace SmartElk.ElkMate.Common.Specs
                 result[2].Value.Should().Be("3");
             }
         }
+        
+        [TestFixture]
+        public class when_trying_to_get_elements_by_name_from_null_element
+        {
+            [Test]
+            public void should_return_empty_list()
+            {
+                //arrange
+                XElement xElement = null;
+                //act
+                var result = xElement.ElementsOrEmpty("elem");
+                //assert
+                result.Should().BeEmpty();
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_get_elements_by_name_from_element
+        {
+            [Test]
+            public void should_return_list_of_elements()
+            {
+                //arrange
+                var xElement = new XElement("Root",
+                                            new XElement("Element1", 1),
+                                            new XElement("Element2", 2),
+                                            new XElement("Element3", 3));
+                //act
+                var result = xElement.ElementsOrEmpty("Element2").ToArray();
+                //assert
+                result.Length.Should().Be(1);
+                result[0].Name.LocalName.Should().Be("Element2");
+                result[0].Value.Should().Be("2");
+            }
+        }
 
         [TestFixture]
         public class when_trying_to_get_element_from_null_element

@@ -10,6 +10,11 @@ namespace SmartElk.ElkMate.Common.Ex
             return element == null ? new XElement[0] : element.Elements();
         }
 
+        public static IEnumerable<XElement> ElementsOrEmpty(this XElement element, XName name)
+        {
+            return element == null ? new XElement[0] : element.Elements(name);
+        }
+
         public static XElement ElementOrDefault(this XElement element, XName name)
         {
             return element == null ? null : element.Element(name);

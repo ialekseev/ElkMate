@@ -126,6 +126,23 @@ namespace SmartElk.ElkMate.Common.Specs
         }
 
         [TestFixture]
+        public class when_trying_to_transform_null_string_to_utf8
+        {
+            [Test]
+            public void should_return_null()
+            {
+                //arrange
+                string str = null;
+
+                //act
+                var result = str.ToUtf8();
+
+                //assert
+                result.Should().BeNull();
+            }
+        }
+
+        [TestFixture]
         public class when_trying_to_transform_string_to_encoding_and_limit_result
         {
             [Test]
