@@ -85,5 +85,31 @@ namespace SmartElk.ElkMate.Common.Ex
 
             return str.Substring(0, limit);
         }
+
+        public static string GetStringBeforeFirstOccurrenceOfChar(this string str, char ch)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+            
+            var index = str.IndexOf(ch);
+            if (index > 0)
+            {
+                return str.Substring(0, index);
+            }
+            return string.Empty;
+        }
+
+        public static string GetStringAfterFirstOccurrenceOfChar(this string str, char ch)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            var index = str.IndexOf(ch);
+            if (index >= 0 && index < str.Length - 1)
+            {
+                return str.Substring(index + 1);
+            }
+            return string.Empty;
+        }
     }
 }

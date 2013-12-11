@@ -227,6 +227,41 @@ namespace SmartElk.ElkMate.Common.Specs
                 result.Should().BeNull();
             }
         }
+
+        [TestFixture]
+        public class when_trying_to_get_part_of_string_before_first_occurrence_of_character
+        {
+            [TestCase("nldn123\\dmi15", Result = "nldn123")]
+            [TestCase("nldn123\\", Result = "nldn123")]
+            [TestCase("\\", Result = "")]
+            [TestCase("nldn123\\dmi15\\iop", Result = "nldn123")]
+            [TestCase("nldn123", Result = "")]
+            [TestCase("", Result = "")]
+            [TestCase("\\\\", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_part_of_string(string str)
+            {                                                
+                return str.GetStringBeforeFirstOccurrenceOfChar('\\');                
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_get_part_of_string_after_character
+        {
+            [TestCase("nldn123\\dmi15", Result = "dmi15")]
+            [TestCase("nldn123\\", Result = "")]
+            [TestCase("nldn123\\dmi15\\iop", Result = "dmi15\\iop")]
+            [TestCase("nldn123\\dmi15\\iop\\", Result = "dmi15\\iop\\")]
+            [TestCase("\\", Result = "")]
+            [TestCase("nldn123", Result = "")]
+            [TestCase("\\\\", Result = "\\")]
+            [TestCase("", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_part_of_string(string str)
+            {
+                return str.GetStringAfterFirstOccurrenceOfChar('\\');
+            }
+        }
     }
 }
 
