@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArgumentsParserSpecs.cs" />
+    <Compile Include="XDocumentExSpecs.cs" />
     <Compile Include="OnSpecs.cs" />
     <Compile Include="EnumerableExSpecs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
