@@ -9,6 +9,7 @@ SmartElk.ElkMate.Common:
 
 - Console Command Line Arguments Parser. Inspired by: http://www.codeproject.com/Articles/3111/C-NET-Command-Line-Arguments-Parser
 
+Install from NuGet: https://www.nuget.org/packages/SmartElk.ElkMate.Common/
 
 SmartElk.ElkMate.Web:
 - Easy to use Captcha
@@ -16,4 +17,4 @@ SmartElk.ElkMate.Web:
 - SeoUrlModule to make your site more "SEO friendly"(Www formatting, Trailing slash formatting, Lower case formatting)
 
 
-Install from NuGet: https://www.nuget.org/packages/SmartElk.ElkMate.Common/
+Install from NuGet: https://www.nuget.org/packages/SmartElk.ElkMate.Web/
