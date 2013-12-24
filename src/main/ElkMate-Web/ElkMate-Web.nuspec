@@ -12,5 +12,8 @@
     <releaseNotes>Helpers: Captcha, Routing, Modules etc</releaseNotes>
     <copyright>Copyright 2013</copyright>
     <tags>Web Captcha Modules Routing Helpers</tags>
+	<dependencies>      
+	  <dependency id="Microsoft.AspNet.Mvc" version="4.0.30506.0" />
+    </dependencies>
   </metadata>
 </package>
