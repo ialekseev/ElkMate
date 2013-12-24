@@ -1,7 +1,10 @@
 ElkMate
 =======
 
-SmartElk.ElkMate.Common:
+Libraries with useful helpers
+
+SmartElk.ElkMate.Common
+-----------------------
 
 - Useful extension methods for String, IEnumerable etc.
 
@@ -11,7 +14,8 @@ SmartElk.ElkMate.Common:
 
 Install from NuGet: https://www.nuget.org/packages/SmartElk.ElkMate.Common/
 
-SmartElk.ElkMate.Web:
+SmartElk.ElkMate.Web
+-----------------------
 - Easy to use Captcha
 - LowercaseRoute for ASP.NET MVC
 - SeoUrlModule to make your site more "SEO friendly"(Www formatting, Trailing slash formatting, Lower case formatting)
