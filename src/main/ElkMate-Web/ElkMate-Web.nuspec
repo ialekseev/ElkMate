@@ -10,7 +10,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Common Web helpers</description>
     <releaseNotes>Helpers: Captcha, Routing, Modules etc</releaseNotes>
-    <copyright>Copyright 2013</copyright>
+    <copyright>Copyright 2014</copyright>
     <tags>Web Captcha Modules Routing Helpers</tags>
 	<dependencies>      
 	  <dependency id="Microsoft.AspNet.Mvc" version="4.0.30506.0" />
