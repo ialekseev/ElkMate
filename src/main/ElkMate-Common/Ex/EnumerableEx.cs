@@ -8,43 +8,32 @@ namespace SmartElk.ElkMate.Common.Ex
     {
         public const string DefaultSeparator = ", ";
 
-        public static string JoinToString<T>(this IEnumerable<T> list, Func<T, string> select, string separator, bool doNotJoinDefaultValues)
+        public static string JoinToString<T, TTransform>(this IEnumerable<T> list, Func<T, TTransform> select, string separator)
         {
             if (list == null)
                 return string.Empty;
+            
+            list = list.Where(t => t != null).ToArray();
+            var targetList = list.Select(@select).Where(t => t != null);
 
-            // ReSharper disable CompareNonConstrainedGenericWithNull
-            var targetList = doNotJoinDefaultValues ? list.Where(t => t != null && !t.Equals(default(T))): list;
-            // ReSharper restore CompareNonConstrainedGenericWithNull
-                                    
-            return @select!=null ? string.Join(separator, targetList.Select(@select)) : string.Join(separator, targetList);
+            return string.Join(separator, targetList);
         }
-
-        public static string JoinToString<T>(this IEnumerable<T> list, bool doNotJoinDefaultValues)
-        {
-            return JoinToString(list, null, DefaultSeparator, doNotJoinDefaultValues);
-        }
-
+        
         public static string JoinToString<T>(this IEnumerable<T> list, string separator)
         {
-            return JoinToString(list, null, separator, false);
+            return JoinToString(list, x => x, separator);
         }
         
         public static string JoinToString<T>(this IEnumerable<T> list)
         {
-            return JoinToString(list, null, DefaultSeparator, false);
+            return JoinToString(list, x => x, DefaultSeparator);
         }
         
         public static string JoinToString<T>(this IEnumerable<T> list, Func<T, string> select)
         {
-            return JoinToString(list, select, DefaultSeparator, false);
+            return JoinToString(list, select, DefaultSeparator);
         }
-        
-        public static string JoinToString<T>(this IEnumerable<T> list, Func<T, string> select, string separator)
-        {
-            return JoinToString(list, select, separator, false);
-        }
-                                
+                                                
         public static IEnumerable<T> ReplaceItems<T, TId>(this IEnumerable<T> list, Func<T, TId> identity, Func<T, bool> whereReplace, T replaceWith)
         {
             list = list.ToList();
