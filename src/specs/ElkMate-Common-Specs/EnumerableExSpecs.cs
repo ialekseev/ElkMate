@@ -41,6 +41,51 @@ namespace SmartElk.ElkMate.Common.Specs
         }
 
         [TestFixture]
+        public class when_trying_to_join_string_list_containing_null_values_with_default_separator
+        {
+            [Test]
+            public void should_join_to_string()
+            {
+                //arrange
+                var list = new[] { "4", null, "2", "3" };
+                //act
+                var result = list.JoinToString();
+                //assert
+                result.Should().Be("4, , 2, 3");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_join_string_list_containing_null_values_with_default_separator_and_do_not_join_default_values_flag
+        {
+            [Test]
+            public void should_join_to_string()
+            {
+                //arrange
+                var list = new[] { "4", null, "2", "3" };
+                //act
+                var result = list.JoinToString(true);
+                //assert
+                result.Should().Be("4, 2, 3");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_join_int_list_containing_default_values_with_default_separator_and_do_not_join_default_values_flag
+        {
+            [Test]
+            public void should_join_to_string()
+            {
+                //arrange
+                var list = new[] { 4, 0, 2, 3 };
+                //act
+                var result = list.JoinToString(true);
+                //assert
+                result.Should().Be("4, 2, 3");
+            }
+        }
+
+        [TestFixture]
         public class when_trying_to_join_composite_list_to_string_with_default_separator
         {
             private class Composite
