@@ -1,6 +1,7 @@
 ﻿// ReSharper disable InconsistentNaming
 
 using System.IO;
+using System.Linq;
 using System.Text;
 using FluentAssertions;
 using NUnit.Framework;
@@ -260,6 +261,66 @@ namespace SmartElk.ElkMate.Common.Specs
             public string should_part_of_string(string str)
             {
                 return str.GetStringAfterFirstOccurrenceOfChar('\\');
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_split_string
+        {
+            [Test]
+            public void should_split()
+            {                
+                //act
+                var result = "123;qwe".SplitToArray(';').ToArray();
+
+                //assert
+                result.Length.Should().Be(2);
+                result[0].Should().Be("123");
+                result[1].Should().Be("qwe");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_split_string_with_separator_ending
+        {
+            [Test]
+            public void should_split()
+            {
+                //act
+                var result = "123;qwe;".SplitToArray(';').ToArray();
+
+                //assert
+                result.Length.Should().Be(2);
+                result[0].Should().Be("123");
+                result[1].Should().Be("qwe");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_split_empty_string
+        {
+            [Test]
+            public void should_return_empty_array()
+            {
+                //act
+                var result = "".SplitToArray(';').ToArray();
+
+                //assert
+                result.Should().BeEmpty();
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_split_null_string
+        {
+            [Test]
+            public void should_return_empty_array()
+            {
+                //act
+                var result = ((string)null).SplitToArray(';').ToArray();
+
+                //assert
+                result.Should().BeEmpty();
             }
         }
     }

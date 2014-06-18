@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -110,6 +111,14 @@ namespace SmartElk.ElkMate.Common.Ex
                 return str.Substring(index + 1);
             }
             return string.Empty;
+        }
+
+        public static IEnumerable<string> SplitToArray(this string str, char separator)
+        {                        
+            if (string.IsNullOrEmpty(str))
+                return new string[0];
+
+            return str.Split(separator).Where(t=>!string.IsNullOrEmpty(t)).ToArray();
         }
     }
 }
