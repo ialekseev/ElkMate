@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SmartElk.ElkMate.Common.Ex
 {
@@ -119,6 +120,30 @@ namespace SmartElk.ElkMate.Common.Ex
                 return new string[0];
 
             return str.Split(separator).Where(t=>!string.IsNullOrEmpty(t)).ToArray();
+        }
+
+        public static string StripTags(this string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            return Regex.Replace(str, @"<[^>]+>|&nbsp;", "").Trim();
+        }
+
+        public static string ReplaceNewLinesWithBrs(this string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            return Regex.Replace(str, @"\r\n?|\n", "<br/>");
+        }
+
+        public static string ReplaceBrsWithNewLines(this string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            return Regex.Replace(str, @"<br\s*[\/]?>", "\n", RegexOptions.IgnoreCase);
         }
     }
 }

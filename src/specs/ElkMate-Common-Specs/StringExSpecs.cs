@@ -323,6 +323,47 @@ namespace SmartElk.ElkMate.Common.Specs
                 result.Should().BeEmpty();
             }
         }
+
+        [TestFixture]
+        public class when_trying_to_strip_tags
+        {
+            [TestCase(" Hello! <b>How are you?<b/> <div>To be or not to be</div> &nbsp;", Result = "Hello! How are you? To be or not to be")]
+            [TestCase("&nbsp;Hello! <b>How are you? To be or not to be</div>&nbsp;", Result = "Hello! How are you? To be or not to be")]
+            [TestCase("&nbsp;", Result = "")]
+            [TestCase("<p>super <b>mario</b></p>", Result = "super mario")]
+            [TestCase("", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_process_properly(string str)
+            {
+                return str.StripTags();                
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_replace_newlines_with_brs
+        {
+            [TestCase("Hello!\nHow are you?\rGood?", Result = "Hello!<br/>How are you?<br/>Good?")]
+            [TestCase("\n\n", Result = "<br/><br/>")]            
+            [TestCase("", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_process_properly(string str)
+            {
+                return str.ReplaceNewLinesWithBrs();
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_replace_brs_with_newlines
+        {
+            [TestCase("Hello!<br>How are you?<br/>Good?<br /><BR>Yes!<Br/>", Result = "Hello!\nHow are you?\nGood?\n\nYes!\n")]
+            [TestCase("<br /><br><br/>", Result = "\n\n\n")]
+            [TestCase("", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_process_properly(string str)
+            {
+                return str.ReplaceBrsWithNewLines();
+            }
+        }
     }
 }
 
