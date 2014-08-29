@@ -364,6 +364,48 @@ namespace SmartElk.ElkMate.Common.Specs
                 return str.ReplaceBrsWithNewLines();
             }
         }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class WhenTryingToEncodeHtml
+        {
+            [TestCase("Are<br/>you<br/>dead?<br/>", Result = "Are&lt;br/&gt;you&lt;br/&gt;dead?&lt;br/&gt;")]
+            [TestCase("<p><div>What are you doing?</div></p>", Result = "&lt;p&gt;&lt;div&gt;What are you doing?&lt;/div&gt;&lt;/p&gt;")]
+            [TestCase("", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_return_proper_result(string str)
+            {
+                return str.HtmlEncode();
+            }
+        }
+
+        [TestFixture]
+        [Category("Unit")]
+        public class WhenTryingToDecodeHtml
+        {
+            [TestCase("Are&lt;br/&gt;you&lt;br/&gt;dead?&lt;br/&gt;", Result = "Are<br/>you<br/>dead?<br/>")]
+            [TestCase("<p>&lt;div&gt;What are you doing?&lt;/div&gt;</p>", Result = "<p><div>What are you doing?</div></p>")]
+            [TestCase("", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_return_proper_result(string str)
+            {
+                return str.HtmlDecode();
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_replace_encoded_brs_with_real_brs
+        {
+            [TestCase("Hello!&lt;br/&gt;<br/>", Result = "Hello!<br/><br/>")]
+            [TestCase("Hello!&LT;Br/&GT;<br/>", Result = "Hello!<br/><br/>")]
+            [TestCase("Hello!&lt;BR&gt;<br/>", Result = "Hello!<br/><br/>")]
+            [TestCase("", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_process_properly(string str)
+            {
+                return str.ReviveEncodedBrs();
+            }
+        }
     }
 }
 
