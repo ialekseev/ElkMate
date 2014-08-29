@@ -145,5 +145,29 @@ namespace SmartElk.ElkMate.Common.Ex
 
             return Regex.Replace(str, @"<br\s*[\/]?>", "\n", RegexOptions.IgnoreCase);
         }
+
+        public static string HtmlEncode(this string source)
+        {
+            if (string.IsNullOrEmpty(source))
+                return source;
+
+            return System.Net.WebUtility.HtmlEncode(source);
+        }
+
+        public static string HtmlDecode(this string source)
+        {
+            if (string.IsNullOrEmpty(source))
+                return source;
+
+            return System.Net.WebUtility.HtmlDecode(source);
+        }
+
+        public static string ReviveEncodedBrs(this string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            return Regex.Replace(str, @"&lt;br\s*[\/]?&gt;", "<br/>", RegexOptions.IgnoreCase);
+        }
     }
 }
