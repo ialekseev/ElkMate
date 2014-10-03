@@ -385,6 +385,34 @@ namespace SmartElk.ElkMate.Common.Specs
                 result.Should().BeNull();
             }
         }
+
+        [TestFixture]
+        public class when_trying_to_apply_function_on_list
+        {
+            private class CompositeObject
+            {
+                public string Value { get; set; }
+            }
+
+            [Test]
+            public void should_apply()
+            {
+                //arrange
+                var list = new List<CompositeObject>()
+                    {
+                        new CompositeObject() {Value = " 123 "},
+                        new CompositeObject() {Value = " 456 "}
+                    };
+
+                //act
+                var result = list.Apply(t => t.Value = t.Value.Trim());
+
+                //assert
+                result.Count.Should().Be(2);
+                result[0].Value.Should().Be("123");
+                result[1].Value.Should().Be("456");
+            }
+        }    
     }
 }
 // ReSharper restore InconsistentNaming
