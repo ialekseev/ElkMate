@@ -130,14 +130,43 @@ namespace SmartElk.ElkMate.Common.Ex
             return Regex.Replace(str, @"<[^>]+>|&nbsp;", "").Trim();
         }
 
-        public static string ReplaceNewLinesWithBrs(this string str)
+        public static string ReplaceNewLinesWith(this string str, string replacement)
         {
             if (string.IsNullOrEmpty(str))
                 return str;
 
-            return Regex.Replace(str, @"\r\n?|\n", "<br/>");
+            return Regex.Replace(str, @"\r\n?|\n", replacement);
+        }
+                
+        public static string ReplaceNewLinesWithBrs(this string str)
+        {
+            return ReplaceNewLinesWith(str, "<br/>");                        
         }
 
+        public static string RemoveNewLines(this string str)
+        {
+            return ReplaceNewLinesWith(str, string.Empty);
+        }
+
+        public static string RemoveSubstring(this string str, string subString)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            return str.Replace(subString, string.Empty);
+        }
+
+        public static string ReplaceSubstringWith(this string str, string subString, string with)
+        {
+            if (string.IsNullOrEmpty(str) || string.IsNullOrEmpty(subString))
+                return str;
+
+            if (with == null)
+                return str;
+
+            return str.Replace(subString, with);
+        }
+        
         public static string ReplaceBrsWithNewLines(this string str)
         {
             if (string.IsNullOrEmpty(str))

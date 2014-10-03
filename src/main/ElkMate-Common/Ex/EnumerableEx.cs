@@ -56,5 +56,14 @@ namespace SmartElk.ElkMate.Common.Ex
             
             return listAsDict.Values.ToList();
         }
+
+        public static IList<T> Apply<T>(this IList<T> list, Action<T> action)
+        {
+            foreach (var item in list)
+            {
+                action(item);
+            }
+            return list;
+        }
     }
 }

@@ -353,6 +353,49 @@ namespace SmartElk.ElkMate.Common.Specs
         }
 
         [TestFixture]
+        public class when_trying_to_remove_newlines
+        {
+            [TestCase("Hello!\nHow are you?\rGood?", Result = "Hello!How are you?Good?")]
+            [TestCase("\n\n", Result = "")]
+            [TestCase("", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_process_properly(string str)
+            {
+                return str.RemoveNewLines();
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_remove_substring
+        {
+            [TestCase("Hello;How are you", Result = "HelloHow are you")]
+            [TestCase(";;", Result = "")]
+            [TestCase("", Result = "")]
+            [TestCase(null, Result = null)]
+            public string should_remove(string str)
+            {
+                return str.RemoveSubstring(";");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_replace_substring_with
+        {
+            [TestCase("Hello\nHow are you", "\n", ";", Result = "Hello;How are you")]
+            [TestCase("\n\n", "\n", ";", Result = ";;")]
+            [TestCase("", "\n", ";", Result = "")]
+            [TestCase(null, "\n", ";", Result = null)]
+            [TestCase("\n\n", null, ";", Result = "\n\n")]
+            [TestCase("\n\n", "", ";", Result = "\n\n")]
+            [TestCase("\n\n", "\n", "", Result = "")]
+            [TestCase("\n\n", "\n", null, Result = "\n\n")]
+            public string should_replace(string str, string substring, string with)
+            {
+                return str.ReplaceSubstringWith(substring, with);
+            }
+        }
+
+        [TestFixture]
         public class when_trying_to_replace_brs_with_newlines
         {
             [TestCase("Hello!<br>How are you?<br/>Good?<br /><BR>Yes!<Br/>", Result = "Hello!\nHow are you?\nGood?\n\nYes!\n")]

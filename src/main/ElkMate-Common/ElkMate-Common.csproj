@@ -49,6 +49,7 @@
     <Compile Include="Email.cs" />
     <Compile Include="Ex\DirectoryEx.cs" />
     <Compile Include="Ex\EnumerableEx.cs" />
+    <Compile Include="Ex\ObjectEx.cs" />
     <Compile Include="Ex\StringEx.cs" />
     <Compile Include="Ex\XDocumentEx.cs" />
     <Compile Include="IContact.cs" />
