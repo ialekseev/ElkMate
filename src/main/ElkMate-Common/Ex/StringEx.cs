@@ -198,5 +198,13 @@ namespace SmartElk.ElkMate.Common.Ex
 
             return Regex.Replace(str, @"&lt;br\s*[\/]?&gt;", "<br/>", RegexOptions.IgnoreCase);
         }
+
+        public static string TrimString(this string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return str;
+
+            return str.Trim();
+        }
     }
 }
