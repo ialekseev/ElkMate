@@ -449,6 +449,23 @@ namespace SmartElk.ElkMate.Common.Specs
                 return str.ReviveEncodedBrs();
             }
         }
+
+        [TestFixture]
+        public class when_trying_to_trim_string
+        {
+            [TestCase(" Blabla ", Result = "Blabla")]
+            [TestCase(" Blabla", Result = "Blabla")]
+            [TestCase("Blabla ", Result = "Blabla")]
+            [TestCase("\nBla\nbla\n", Result = "Bla\nbla")]
+            [TestCase("\nBlabla", Result = "Blabla")]
+            [TestCase("Blabla\n", Result = "Blabla")]
+            [TestCase(null, Result = null)]
+            [TestCase("", Result = "")]
+            public string should_trim(string str)
+            {
+                return str.TrimString();
+            }
+        }
     }
 }
 
