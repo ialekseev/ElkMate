@@ -1,5 +1,6 @@
 ﻿// ReSharper disable InconsistentNaming
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -464,6 +465,19 @@ namespace SmartElk.ElkMate.Common.Specs
             public string should_trim(string str)
             {
                 return str.TrimString();
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_extract_types_from_string
+        {
+            [TestCase("System.Net.Mail.SmtpFailedRecipientException, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089; System.FormatException", Result = new[] { typeof(System.Net.Mail.SmtpFailedRecipientException), typeof(System.FormatException) })]
+            [TestCase("System.Net.Mail.SmtpFailedRecipientException, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;", Result = new[] { typeof(System.Net.Mail.SmtpFailedRecipientException) })]
+            [TestCase("", Result = new Type[0])]
+            [TestCase(null, Result = new Type[0])]
+            public Type[] should_extract_properly(string str)
+            {                
+                return str.ExtractTypes();                
             }
         }
     }
