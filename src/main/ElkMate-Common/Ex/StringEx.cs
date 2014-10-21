@@ -206,5 +206,16 @@ namespace SmartElk.ElkMate.Common.Ex
 
             return str.Trim();
         }
+
+        public static Type[] ExtractTypes(this string str, char separator = ';')
+        {
+            if (separator == ',')
+                throw new ArgumentException("Can't use comma as a type separator");
+
+            if (string.IsNullOrEmpty(str))
+                return new Type[0];
+
+            return str.Trim().Split(separator).Where(t => t != string.Empty).Select(Type.GetType).ToArray();
+        }
     }
 }
