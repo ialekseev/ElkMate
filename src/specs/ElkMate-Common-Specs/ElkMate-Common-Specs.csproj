@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="ArgumentsParserSpecs.cs" />
     <Compile Include="ObjectExSpecs.cs" />
+    <Compile Include="TimeRangeSpecs.cs" />
     <Compile Include="XDocumentExSpecs.cs" />
     <Compile Include="OnSpecs.cs" />
     <Compile Include="EnumerableExSpecs.cs" />
