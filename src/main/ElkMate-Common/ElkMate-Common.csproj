@@ -57,6 +57,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaltedHash.cs" />
     <Compile Include="Ticket.cs" />
+    <Compile Include="TimeRange.cs" />
     <Compile Include="Validation\BaseValidationCore.cs" />
     <Compile Include="Validation\IValidationCore.cs" />
   </ItemGroup>
