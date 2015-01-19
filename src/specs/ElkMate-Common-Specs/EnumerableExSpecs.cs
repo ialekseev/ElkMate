@@ -1,5 +1,6 @@
-﻿// ReSharper disable InconsistentNaming
-
+﻿using System;
+using System.Configuration;
+// ReSharper disable InconsistentNaming
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
@@ -412,7 +413,76 @@ namespace SmartElk.ElkMate.Common.Specs
                 result[0].Value.Should().Be("123");
                 result[1].Value.Should().Be("456");
             }
-        }    
+        }
+
+
+        class Person
+        {
+            public string Name { get; set; }
+            public int Age { get; set; }
+        }
+
+        [TestFixture]
+        public class when_trying_to_distinct_by_one_field_with_default_equality_comparer
+        {            
+            [Test]
+            public void should_distinct()
+            {
+                //arrange
+                IEnumerable<Person> list = new List<Person>()
+                {
+                    new Person(){Name = "vasya", Age=3},
+                    new Person(){Name = "vasya", Age=5},
+                    new Person(){Name = "petya", Age=6},
+                    new Person(){Name = "ivan", Age=9}
+                };
+                
+                //act                
+                var result = list.DistinctBy(t => t.Name).ToList();
+                
+                //assert
+                result.Count.Should().Be(3);
+                result[0].Name.Should().Be("vasya");
+                result[1].Name.Should().Be("petya");
+                result[2].Name.Should().Be("ivan");
+            }
+        }
+
+        [TestFixture]
+        public class when_trying_to_distinct_by_multiple_fields_with_default_equality_comparer
+        {
+            [Test]
+            public void should_distinct()
+            {
+                //arrange
+                IEnumerable<Person> list = new List<Person>()
+                {
+                    new Person(){Name = "vasya", Age=3},
+                    new Person(){Name = "vasya", Age=5},
+                    new Person(){Name = "vasya", Age=3},
+                    new Person(){Name = "petya", Age=6},
+                    new Person(){Name = "ivan", Age=9}
+                };
+
+                //act                
+                var result = list.DistinctBy(t => new {t.Name, t.Age}).ToList();
+
+                //assert
+                result.Count.Should().Be(4);
+                
+                result[0].Name.Should().Be("vasya");
+                result[0].Age.Should().Be(3);
+                
+                result[1].Name.Should().Be("vasya");
+                result[1].Age.Should().Be(5);
+                
+                result[2].Name.Should().Be("petya");
+                result[2].Age.Should().Be(6);
+                
+                result[3].Name.Should().Be("ivan");
+                result[3].Age.Should().Be(9);                
+            }
+        }
     }
 }
 // ReSharper restore InconsistentNaming
